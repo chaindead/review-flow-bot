@@ -2,8 +2,10 @@ package bot
 
 import (
 	"context"
+	"database/sql"
 	"strings"
 
+	"github.com/pkg/errors"
 	"github.com/rs/zerolog/log"
 	"github.com/samber/lo"
 	tele "gopkg.in/telebot.v4"
@@ -43,13 +45,14 @@ func (b *Bot) reviewHandler(c tele.Context) error {
 	var forceUsers []models.User
 	for _, uname := range forceUsernames {
 		var fr models.User
-		exists, err := b.db.DB().NewSelect().Model(&fr).Where("telegram_username = ?", uname).Exists(context.Background())
+		err := b.db.DB().NewSelect().Model(&fr).Where("telegram_username = ?", uname).Scan(ctx)
 		if err != nil {
-			return err
-		}
+			if errors.Is(err, sql.ErrNoRows) {
+				failedUnames = append(failedUnames, uname)
+				continue
+			}
 
-		if !exists {
-			failedUnames = append(failedUnames, uname)
+			return err
 		}
 
 		forceUsers = append(forceUsers, fr)

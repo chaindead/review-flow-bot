@@ -34,6 +34,7 @@ func (d *DB) MergeReqCreate(ctx context.Context,
 			ProjectID:  pID,
 			ReviewerID: user.ID,
 		})
+
 	}
 
 	if _, err := d.db.NewInsert().Model(&mrr).Exec(ctx); err != nil {

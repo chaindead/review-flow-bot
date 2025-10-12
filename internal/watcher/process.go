@@ -64,17 +64,6 @@ func (w *Watcher) processOne(ctx context.Context, l zerolog.Logger, mr models.Me
 		return errors.Wrap(err, "list discussions")
 	}
 
-	if descUpdatedAt.IsZero() || descUpdatedAt.Equal(mr.GitlabUpdatedAt) {
-		l.Debug().
-			Time("gl-updated", descUpdatedAt).
-			Msg("skip due no changes")
-		return nil
-	}
-
-	l.Debug().
-		Times("cur/new", []time.Time{mr.GitlabUpdatedAt, descUpdatedAt}).
-		Msg("new update: stating process")
-
 	// PROCESS SECTION: MERGE REQ STATUS
 	glMr, err := w.git.GetMergeRequest(ctx, mr.ProjectID, mr.MRID)
 	if err != nil {
@@ -101,6 +90,21 @@ func (w *Watcher) processOne(ctx context.Context, l zerolog.Logger, mr models.Me
 		l.Warn().Str("status", glMr.State).Msg("skip due unknown status")
 		return nil
 	}
+
+	if glMr.UpdatedAt != nil && glMr.UpdatedAt.After(descUpdatedAt) {
+		descUpdatedAt = *glMr.UpdatedAt
+	}
+
+	if descUpdatedAt.IsZero() || descUpdatedAt.Equal(mr.GitlabUpdatedAt) {
+		l.Debug().
+			Time("gl-updated", descUpdatedAt).
+			Msg("skip due no changes")
+		return nil
+	}
+
+	l.Debug().
+		Times("cur/new", []time.Time{mr.GitlabUpdatedAt, descUpdatedAt}).
+		Msg("new update: stating process")
 
 	// PROCESS SECTION: COMMENTS
 	notifyNoteAuthor := []string{}
