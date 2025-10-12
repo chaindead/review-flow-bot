@@ -1,6 +1,6 @@
-# Review Flow Bot
+# 🤖 Review Flow Bot
 
-Automates and streamlines the code review process for GitLab projects.
+Automates and streamlines the code review process for GitLab projects via Telegram.
 
 ## 🚀 Key Features
 
@@ -10,8 +10,6 @@ Automates and streamlines the code review process for GitLab projects.
 - **Status Change Detection**: Automatically detects and notifies on review status changes
 - **Team Organization**: Organize users into teams with different roles (members, reviewers)
 - **Authentication**: Users authenticate with GitLab using `/login <gitlab_token>` with `read_user` permission
-
-
 
 ## Installation
 
