@@ -26,4 +26,4 @@ tasks:
 
   test:
     desc: go run of cmd/test
-    cmd: go run ./cmd/goth/test.go
+    cmd: go run ./cmd/test/test.go
