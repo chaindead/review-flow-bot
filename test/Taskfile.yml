@@ -2,9 +2,11 @@ version: '3'
 
 tasks:
   start:
+    desc: start local gitlab instance
     cmd: docker compose up --force-recreate
   add-users:
+    desc: add test users to gitlab
     cmd: docker exec -i gitlab-local gitlab-rails console < create-test-users.rb
   add-mr:
-    desc: asdf
+    desc: add test mr to gitlab
     cmd: docker exec -i gitlab-local gitlab-rails console < create-test-repo.rb

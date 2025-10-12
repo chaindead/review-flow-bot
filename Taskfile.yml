@@ -11,10 +11,8 @@ dotenv:
   - .env
 
 tasks:
-  mod: go mod tidy
-  ngrok: ngrok http 3000
-
   default:
+    desc: local run
     env:
       DB_SEED: true
     cmds:
@@ -22,5 +20,10 @@ tasks:
       - go run ./cmd/server/main.go {{ .CLI_ARGS }}
     silent: true
 
+  mod:
+    desc: run go mod tidy
+    cmd: go mod tidy
 
-  test: go run ./cmd/goth/test.go
+  test:
+    desc: go run of cmd/test
+    cmd: go run ./cmd/goth/test.go
