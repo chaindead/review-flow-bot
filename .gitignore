@@ -1,0 +1,9 @@
+/.idea
+/bin
+/data
+.env
+/test/gitlab
+.cursor
+server
+test.db
+/internal/db/seed/private.yaml

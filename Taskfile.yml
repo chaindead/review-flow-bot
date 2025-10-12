@@ -1,0 +1,26 @@
+# https://taskfile.dev
+
+version: '3'
+
+includes:
+  gitlab:
+    taskfile: test/Taskfile.yml
+    dir: test
+
+dotenv:
+  - .env
+
+tasks:
+  mod: go mod tidy
+  ngrok: ngrok http 3000
+
+  default:
+    env:
+      DB_SEED: true
+    cmds:
+      - rm -f test.db
+      - go run ./cmd/server/main.go {{ .CLI_ARGS }}
+    silent: true
+
+
+  test: go run ./cmd/goth/test.go

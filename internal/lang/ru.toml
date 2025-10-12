@@ -1,0 +1,162 @@
+[admin.list]
+teams = '''
+{{- range .Teams }}
+{{- if .Members }}
+📁 {{ .Name | esc | bold }}
+  {{- range .Members }}
+  {{ role .Role }} @{{ .User.TelegramUsername | esc }} {{ .User.GitlabUsername | esc | par }}
+  {{- end }}
+{{- else }}
+📁 {{ .Name | esc | bold }}: пустая
+{{- end }}
+{{ end }}
+
+{{- if .Unassigned }}
+{{ bold "⚠️ Не назначены в команду" }}
+{{- range .Unassigned }}
+  • @{{ .TelegramUsername | esc }} {{ .GitlabUsername | esc | par }}
+{{- end }}
+{{- end }}
+'''
+
+[admin.assign]
+usage = "❌ Использование: /assign <username> <team> [reviewer]"
+bad_role = "❌ Опциональная роль может быть только reviewer"
+not_logged = "❌ Пользователь @{{ .TelegramUsername }} не залогинен в боте"
+success = "✅ @{{ .TelegramUsername | esc }} добавлен в команду {{ .Team | esc | bold }} как {{ .Role | esc | bold }}"
+
+[start]
+welcome = '''
+🤖 {{ bold "GitLab Review Bot" }}
+
+{{ esc "Привет! Я помогу организовать процесс code review в вашей команде." }}
+
+{{ bold "Начало работы" }}
+Сначала привяжите свой GitLab аккаунт:
+  {{ esc "/login <gitlab_token>" }}
+
+{{ bold "После станут доступны команды" }}
+  {{ esc "/review <merge_request_link> - передача в МР в ревью" }}
+  {{ esc "/my - мои активные MR и ревью" }}
+
+
+{{ esc "/help — список всех команд" }}
+'''
+
+[help]
+commands = '''
+{{ bold "Доступные команды" }}
+  {{ esc "/start - приветствие и инструкция" }}
+  {{ esc "/id - узнать свой Telegram ID" }}
+  {{ esc "/login <token> - привязать GitLab аккаунт" }}
+  {{ esc "/my - мои активные MR и ревью" }}
+  {{ esc "/review <link> [<username>...] - создать запрос на ревью" }}
+{{- if .IsAdmin }}
+{{ bold "Админ команды" }}
+  {{ esc "/assign <username> <team> [reviewer] - назначить юзера в команду" }}
+  {{ esc "/list - список команд и пользователей" }}
+{{- end }}
+'''
+
+[login]
+usage = "❌ Использование: /login <gitlab_token>"
+fail_gitlab = "❌ Не удалось получить информацию из GitLab. Проверьте токен."
+success = '''
+{{ esc "✅ Gitlab привязан в текущему телеграм аккаунту!" }}
+
+Telegram: @{{ .TelegramUsername | esc }}
+GitLab: {{ .GitlabUsername | esc }}
+'''
+
+[review]
+usage = "❌ Использование: /review <mr_link> [<username>...]"
+bad_force = '❌ @{{ join .Nicks " @" }} не залогинен в боте'
+bad_reviewers = "❌ Не удалось найти ревьюеров в вашей команде. Проверьте /my"
+bad_link = "❌ Неверная ссылка на MR"
+notify = '''
+{{ esc "👀 Вы назначены ревьюером!" }}
+
+МР: {{ urle .MR.Title .MR.Link }}
+{{- $author := .MR.Author }}
+Автор: @{{ $author.TelegramUsername | esc }} {{ $author.GitlabUsername | esc | par }}
+Ревьюреры:
+{{- range .MR.Reviewers }}
+ • @{{ .Reviewer.TelegramUsername | esc }} {{ .Reviewer.GitlabUsername | esc | par }}
+{{- end }}
+'''
+success = '''
+✅ MR отправлен на ревью:
+{{- $rs := .MR.Reviewers }}
+{{- range $rs }}
+ • @{{ .Reviewer.TelegramUsername | esc }} {{ .Reviewer.GitlabUsername | esc | par }}
+{{- end }}
+'''
+
+[my]
+success = '''
+GitLab: {{ .User.GitlabUsername | esc | italic }}
+{{- if .User.TeamMembership }}
+В команде {{ .User.TeamMembership.TeamID | esc | italic }}
+{{- else }}
+⚠️ Не назначен в команду!
+{{- end }}
+{{- println }}
+
+{{- if .User.AuthoredMRs }}
+{{ bold "Отправленные ревью" }}
+{{- range .User.AuthoredMRs }}
+• {{ urle .Title .Link }}
+{{- range .Reviewers }}
+  {{ status .Status }} @{{ .Reviewer.TelegramUsername | esc }} {{ .Reviewer.GitlabUsername | esc | par }}
+{{- end }}
+{{- println }}
+{{- end }}
+{{- end }}
+
+{{- if .User.ReviewingMRs }}
+{{ bold "Запрошенные ревью" }}
+{{- range .User.ReviewingMRs }}
+{{- $author := .MergeRequest.Author }}
+{{ status .Status }} {{ urle .MergeRequest.Title .MergeRequest.Link }}
+  ⤷ @{{ $author.TelegramUsername | esc }} {{ $author.GitlabUsername | esc | par }}
+{{- println }}
+{{- end }}
+{{- end }}
+'''
+[watch.notify]
+reviewer = '''
+🔔 {{ urle .MR.Title .MR.Link }}
+{{- if and .StatusChange (eq .StatusChange.Status "pending") }}
+{{- esc " ожидает вашего ревью!" }}
+{{- end }}
+
+{{- if .Comments }}
+{{- println }}
+{{ bold "✏️ Новые комментарии:" }}
+{{- range .Comments }}
+  • {{ . | esc }}
+{{- end }}
+{{- end }}
+'''
+
+author = '''
+🔔 {{ urle .MR.Title .MR.Link }}
+
+{{- if .StatusChanges }}
+{{- println }}
+{{ bold "Изменения статусов ревьюеров:" }}
+{{- range .StatusChanges }}
+  {{ status .Status }} @{{ .Reviewer.TelegramUsername | esc }} {{ .Reviewer.GitlabUsername | esc | par }}
+{{- end }}
+{{- end }}
+
+{{- if .Comments }}
+{{- println }}
+{{ bold "✏️ Новые комментарии:" }}
+{{- range .Comments }}
+  • {{ . | esc }}
+{{- end }}
+{{- end }}
+'''
+merged = '🔀 {{ urle .MR.Title .MR.Link }} вмержен {{ esc "!"}}'
+closed = '🚫 {{ urle .MR.Title .MR.Link }} закрыт {{ esc "!"}}'

@@ -1,0 +1,57 @@
+- model: User
+  rows:
+    - id: 111
+      gitlab_id: 111
+      telegram_username: telegram_user_name
+      gitlab_username: gitlab_user-name
+
+    - _id: t1
+      id: 1000
+      gitlab_id: 1000
+      telegram_username: tg1
+      gitlab_username: gl1
+
+    - _id: t2
+      id: 2000
+      gitlab_id: 2000
+      telegram_username: tg2
+      gitlab_username: gl2
+
+    - _id: t3
+      id: 3000
+      gitlab_id: 3000
+      telegram_username: tg3
+      gitlab_username: gl3
+
+    - _id: t4
+      id: 4000
+      gitlab_id: 4000
+      telegram_username: tg4
+      gitlab_username: gl4
+
+    - _id: t5
+      id: 5000
+      gitlab_id: 5000
+      telegram_username: tg5
+      gitlab_username: gl5
+
+- model: Team
+  rows:
+    - _id: fake_team
+      name: frontend
+
+- model: TeamMember
+  rows:
+    - user_id: "{{ $.User.t1.ID }}"
+      team_id: "{{ $.Team.fake_team.Name }}"
+      role: reviewer
+    - user_id: "{{ $.User.t2.ID }}"
+      team_id: "{{ $.Team.fake_team.Name }}"
+      role: reviewer
+    - user_id: "{{ $.User.t3.ID }}"
+      team_id: "{{ $.Team.fake_team.Name }}"
+      role: reviewer
+    - user_id: "{{ $.User.t4.ID }}"
+      team_id: "{{ $.Team.fake_team.Name }}"
+    - user_id: "{{ $.User.t5.ID }}"
+      team_id: "{{ $.Team.fake_team.Name }}"
