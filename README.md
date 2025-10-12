@@ -1,7 +1,17 @@
 # Review Flow Bot
 
-Review Flow Bot streamlines the code review process by automatically managing reviewer assignments and notifications. 
-It integrates with GitLab to track merge requests and uses Telegram for communication.
+Automates and streamlines the code review process for GitLab projects.
+
+## 🚀 Key Features
+
+- **Automated Reviewer Assignment**: Smart assignment based on team membership and project context
+- **Flexible Review Requests**: Support for both automatic and manual reviewer assignment
+- **Review Progress Tracking**: Monitor pending, approved, and rejected reviews
+- **Status Change Detection**: Automatically detects and notifies on review status changes
+- **Team Organization**: Organize users into teams with different roles (members, reviewers)
+- **Authentication**: Users authenticate with GitLab using `/login <gitlab_token>` with `read_user` permission
+
+
 
 ## Installation
 
