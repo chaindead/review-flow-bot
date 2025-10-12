@@ -53,7 +53,7 @@ func (b *Bot) loginHandler(c tele.Context) error {
 
 	err = b.db.SaveUser(ctx, telegramID, int64(gitlabUser.ID), telegramUsername, gitlabUser.Username)
 	if err != nil {
-		return b.sendError(c, err)
+		return err
 	}
 
 	return c.Send(b.loc.Get("login.success", lang.Args{

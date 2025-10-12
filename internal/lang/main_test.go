@@ -50,6 +50,14 @@ func TestLocalizer_Get(t *testing.T) {
 			args: NoArgs,
 		},
 		{
+			name: "auth.require.login",
+			args: NoArgs,
+		},
+		{
+			name: "auth.require.admin",
+			args: NoArgs,
+		},
+		{
 			name: "admin.assign.bad_role",
 			args: NoArgs,
 		},

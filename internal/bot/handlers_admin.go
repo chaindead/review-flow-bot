@@ -76,7 +76,7 @@ func (b *Bot) assignHandler(c tele.Context) error {
 
 	err = b.db.AssignUserToTeam(ctx, user.ID, teamName, role)
 	if err != nil {
-		return b.sendError(c, err)
+		return err
 	}
 
 	return c.Send(b.loc.Get("admin.assign.success", lang.Args{

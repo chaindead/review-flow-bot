@@ -1,3 +1,7 @@
+[auth.require]
+login = '❌ Сначала авторизуйтесь: /login <gitlab_token>'
+admin = '❌ Эта команда доступна только администраторам'
+
 [admin.list]
 teams = '''
 {{- range .Teams }}

@@ -8,6 +8,8 @@ import (
 
 	"github.com/rs/zerolog/log"
 	tele "gopkg.in/telebot.v4"
+
+	"github.com/chaindead/review-flow-bot/internal/lang"
 )
 
 // isAdmin checks if user is admin
@@ -29,7 +31,7 @@ func (b *Bot) requireAuth(next tele.HandlerFunc) tele.HandlerFunc {
 		user, err := b.db.GetUserByTelegramID(ctx, userID)
 		if err != nil || user == nil {
 			log.Debug().Int64("user_id", userID).Msg("unauthorized access attempt")
-			return c.Send("❌ Сначала авторизуйтесь: /login <gitlab_token>")
+			return c.Send(b.loc.Get("auth.require.login", lang.NoArgs))
 		}
 
 		return next(c)
@@ -43,22 +45,11 @@ func (b *Bot) requireAdmin(next tele.HandlerFunc) tele.HandlerFunc {
 
 		if !b.isAdmin(userID) {
 			log.Warn().Int64("user_id", userID).Msg("unauthorized admin access attempt")
-			return c.Send("❌ Эта команда доступна только администраторам")
+			return c.Send(b.loc.Get("auth.require.admin", lang.NoArgs))
 		}
 
 		return next(c)
 	}
-}
-
-// Helper functions
-
-func (b *Bot) sendError(c tele.Context, err error) error {
-	log.Error().Err(err).Msg("handler error")
-	return c.Send(fmt.Sprintf("❌ Ошибка: %v", err))
-}
-
-func (b *Bot) sendSuccess(c tele.Context, msg string) error {
-	return c.Send(fmt.Sprintf("✅ %s", msg))
 }
 
 func (b *Bot) onError(err error, c tele.Context) {
