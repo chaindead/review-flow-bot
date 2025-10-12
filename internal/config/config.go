@@ -24,7 +24,7 @@ type TG struct {
 }
 
 type DB struct {
-	File string `env:"DB_FILE" envDefault:"test.db"`
+	File string `env:"DB_FILE" envDefault:"review-flow-bot.db"`
 	Seed bool   `env:"SEED" envDefault:"false"`
 }
 
