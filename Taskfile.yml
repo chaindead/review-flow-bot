@@ -17,7 +17,7 @@ tasks:
       DB_SEED: true
     cmds:
       - rm -f test.db
-      - go run ./cmd/server/main.go {{ .CLI_ARGS }}
+      - go run ./cmd/review-flow-bot/main.go {{ .CLI_ARGS }}
     silent: true
 
   mod:

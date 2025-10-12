@@ -10,7 +10,7 @@ builds:
     goarch:
       - amd64
       - arm64
-    main: ./cmd/server
+    main: ./cmd/review-flow-bot
     binary: review-flow-bot
     ldflags:
       - -s -w -X main.buildTag={{.Tag}}

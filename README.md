@@ -14,6 +14,15 @@ It integrates with GitLab to track merge requests and uses Telegram for communic
    chmod +x review-flow-bot
    ```
 
+### Go Install (dev only)
+
+```bash
+go install github.com/chaindead/review-flow-bot/cmd/review-flow-bot@latest
+
+# check installation
+review-flow-bot --version
+```
+
 ## Getting Started
 > Use `--help` flag to see all availible flags
 
