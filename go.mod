@@ -9,6 +9,7 @@ require (
 	github.com/olekukonko/tablewriter v1.1.0
 	github.com/pkg/errors v0.9.1
 	github.com/rs/zerolog v1.34.0
+	github.com/rumenvasilev/go-gitlab-mock v0.0.4
 	github.com/samber/do/v2 v2.0.0
 	github.com/samber/lo v1.52.0
 	github.com/spf13/pflag v1.0.5
@@ -30,6 +31,7 @@ require (
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/gorilla/mux v1.8.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.8 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
@@ -50,6 +52,7 @@ require (
 	github.com/tmthrgd/go-hex v0.0.0-20190904060850-447a3041c3bc // indirect
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
+	github.com/xanzy/go-gitlab v0.93.2 // indirect
 	golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc // indirect
 	golang.org/x/oauth2 v0.30.0 // indirect
 	golang.org/x/sys v0.34.0 // indirect
