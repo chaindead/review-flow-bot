@@ -2,12 +2,14 @@ package bot
 
 import (
 	"context"
+	"fmt"
 	"math/rand"
 	"testing"
 
 	"github.com/samber/do/v2"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
+	"github.com/uptrace/bun"
 	tele "gopkg.in/telebot.v4"
 
 	gmock "github.com/rumenvasilev/go-gitlab-mock/mock"
@@ -45,7 +47,7 @@ func (s *Suite) SetupSuite() {
 	s.inj = do.New()
 	s.loc = &mockLocalizer{}
 
-	do.ProvideNamedValue(s.inj, "cfg.db", config.DB{File: ":memory:"})
+	do.ProvideNamedValue(s.inj, "cfg.db", config.DB{File: ":memory:", Seed: true})
 	do.ProvideNamedValue(s.inj, "cfg.tg", config.TG{})
 	do.ProvideValue(s.inj, &gitlab.Gitlab{})
 	do.ProvideValue(s.inj, s.loc)
@@ -90,28 +92,34 @@ func (s *Suite) SetupTest() {
 }
 
 func (s *Suite) cleanDB() {
-	sql := `
-	PRAGMA foreign_keys = OFF;
-
-	-- Generate and execute delete statements for all user tables
-	WITH tables AS (
-		SELECT name
-		FROM sqlite_master
-		WHERE type = 'table'
-		  AND name NOT LIKE 'sqlite_%'
-	)
-	SELECT 'DELETE FROM "' || name || '";' AS stmt FROM tables;
-
-	PRAGMA foreign_keys = ON;
-	`
-
-	_, err := s.bot.db.DB().ExecContext(ctx, sql)
+	var tables []string
+	err := s.DB().NewSelect().
+		With("tables", s.DB().NewSelect().
+			Column("name").
+			TableExpr("sqlite_master").
+			Where("type = 'table' AND name NOT LIKE 'sqlite_%'"),
+		).
+		Table("tables").
+		Column("name").
+		Scan(ctx, &tables)
 	s.NoError(err)
+
+	// Disable FKs, delete all rows, re-enable FKs
+	_, _ = s.DB().ExecContext(ctx, `PRAGMA foreign_keys = OFF;`)
+	for _, t := range tables {
+		_, err := s.DB().ExecContext(ctx, fmt.Sprintf(`DELETE FROM "%s";`, t))
+		s.NoError(err)
+	}
+	_, _ = s.DB().ExecContext(ctx, `PRAGMA foreign_keys = ON;`)
 }
 
 func (s *Suite) TearDownTest() {
 	s.tc.AssertExpectations(s.T())
 	s.True(s.loc.called)
+}
+
+func (s *Suite) DB() *bun.DB {
+	return s.bot.db.DB()
 }
 
 type mockLocalizer struct {
