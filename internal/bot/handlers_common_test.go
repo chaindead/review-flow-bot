@@ -24,7 +24,7 @@ func (s *Suite) TestHandlerID() {
 			mock.Anything).
 		Return(nil)
 
-	s.Require().NoError(s.bot.idHandler(s.tc))
+	s.Run(s.bot.idHandler)
 	s.loc.called = true // hack
 }
 
@@ -47,12 +47,12 @@ func (s *Suite) TestHandlerLogin() {
 		Args().
 		Return([]string{token})
 
-	s.Require().NoError(s.bot.loginHandler(s.tc))
+	s.Run(s.bot.loginHandler)
 	s.Equal(u.Username, s.loc.args["GitlabUsername"])
 	s.Equal(s.tc.Sender().Username, s.loc.args["TelegramUsername"])
 
 	dbU := models.User{ID: s.tc.Sender().ID}
-	s.Require().NoError(s.bot.db.DB().NewSelect().Model(&dbU).WherePK().Scan(ctx))
+	s.Require().NoError(s.DB().NewSelect().Model(&dbU).WherePK().Scan(ctx))
 
 	s.Equal(s.tc.Sender().ID, dbU.ID)
 	s.Equal(s.tc.Sender().Username, dbU.TelegramUsername)
@@ -63,16 +63,16 @@ func (s *Suite) TestHandlerLogin() {
 func (s *Suite) TestHandlerLogin_Failed() {
 	s.tc.EXPECT().Args().Return([]string{})
 
-	s.Require().NoError(s.bot.loginHandler(s.tc))
+	s.Run(s.bot.loginHandler)
 	s.Equal("login.usage", s.loc.id)
 }
 
 func (s *Suite) TestHandlerStart() {
-	s.Require().NoError(s.bot.startHandler(s.tc))
+	s.Run(s.bot.startHandler)
 	s.Equal("start.welcome", s.loc.id)
 }
 
 func (s *Suite) TestHandlerHelp() {
-	s.Require().NoError(s.bot.helpHandler(s.tc))
+	s.Run(s.bot.helpHandler)
 	s.Equal("help.commands", s.loc.id)
 }
