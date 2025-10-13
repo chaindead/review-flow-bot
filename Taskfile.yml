@@ -27,3 +27,17 @@ tasks:
   test:
     desc: go run of cmd/test
     cmd: go run ./cmd/test/test.go
+
+  gen:
+    vars:
+      TELEBOT_DIR:
+        sh: go list -f '{{"{{.Dir}}"}}' gopkg.in/telebot.v4
+    cmds:
+      - >
+        mockery --name=Context --dir {{ .TELEBOT_DIR }} 
+        --filename tcontext_mock_test.go 
+        --output internal/bot
+        --outpkg bot
+        --with-expecter
+
+
