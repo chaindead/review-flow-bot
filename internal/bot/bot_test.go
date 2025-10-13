@@ -47,7 +47,7 @@ func (s *Suite) SetupSuite() {
 	s.inj = do.New()
 	s.loc = &mockLocalizer{}
 
-	do.ProvideNamedValue(s.inj, "cfg.db", config.DB{File: ":memory:", Seed: true})
+	do.ProvideNamedValue(s.inj, "cfg.db", config.DB{File: ":memory:"})
 	do.ProvideNamedValue(s.inj, "cfg.tg", config.TG{})
 	do.ProvideValue(s.inj, &gitlab.Gitlab{})
 	do.ProvideValue(s.inj, s.loc)
