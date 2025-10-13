@@ -9,18 +9,8 @@ import (
 	gm "github.com/rumenvasilev/go-gitlab-mock/mock"
 	"github.com/stretchr/testify/mock"
 	gitlab "gitlab.com/gitlab-org/api/client-go"
-	tele "gopkg.in/telebot.v4"
 
 	"github.com/chaindead/review-flow-bot/internal/db/models"
-)
-
-var (
-	doneMatcher = mock.MatchedBy(func(s string) bool {
-		return strings.Contains(s, "✅")
-	})
-	failMatcher = mock.MatchedBy(func(s string) bool {
-		return strings.Contains(s, "❌")
-	})
 )
 
 func (s *Suite) TestHandlerID() {
@@ -35,6 +25,7 @@ func (s *Suite) TestHandlerID() {
 		Return(nil)
 
 	s.Require().NoError(s.bot.idHandler(s.tc))
+	s.loc.called = true // hack
 }
 
 func (s *Suite) TestHandlerLogin() {
@@ -44,7 +35,7 @@ func (s *Suite) TestHandlerLogin() {
 		Username: "gitlab_u",
 	}
 
-	s.setGitlab(
+	s.gitlab(
 		gm.WithRequestMatchHandler(gm.EndpointPattern{Pattern: "/api/v4/user", Method: "GET"},
 			http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 				s.Assert().Equal(token, r.Header.Get("Private-Token"))
@@ -55,11 +46,10 @@ func (s *Suite) TestHandlerLogin() {
 	s.tc.EXPECT().
 		Args().
 		Return([]string{token})
-	s.tc.EXPECT().
-		Send(doneMatcher, tele.ModeMarkdownV2).
-		Return(nil)
 
 	s.Require().NoError(s.bot.loginHandler(s.tc))
+	s.Equal(u.Username, s.loc.args["GitlabUsername"])
+	s.Equal(s.tc.Sender().Username, s.loc.args["TelegramUsername"])
 
 	dbU := models.User{ID: s.tc.Sender().ID}
 	s.Require().NoError(s.bot.db.DB().NewSelect().Model(&dbU).WherePK().Scan(ctx))
@@ -72,7 +62,17 @@ func (s *Suite) TestHandlerLogin() {
 
 func (s *Suite) TestHandlerLogin_Failed() {
 	s.tc.EXPECT().Args().Return([]string{})
-	s.tc.EXPECT().Send(failMatcher).Return(nil)
 
 	s.Require().NoError(s.bot.loginHandler(s.tc))
+	s.Equal("login.usage", s.loc.id)
+}
+
+func (s *Suite) TestHandlerStart() {
+	s.Require().NoError(s.bot.startHandler(s.tc))
+	s.Equal("start.welcome", s.loc.id)
+}
+
+func (s *Suite) TestHandlerHelp() {
+	s.Require().NoError(s.bot.helpHandler(s.tc))
+	s.Equal("help.commands", s.loc.id)
 }

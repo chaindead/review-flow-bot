@@ -32,8 +32,6 @@ type Team struct {
 	Members []*TeamMember `bun:"rel:has-many,join:name=team_id"`
 }
 
-type TeamMemberRole string
-
 const (
 	RoleMember   = "member"
 	RoleReviewer = "reviewer"

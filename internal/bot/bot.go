@@ -11,14 +11,17 @@ import (
 	"github.com/chaindead/review-flow-bot/internal/config"
 	"github.com/chaindead/review-flow-bot/internal/db"
 	"github.com/chaindead/review-flow-bot/internal/gitlab"
-	"github.com/chaindead/review-flow-bot/internal/lang"
 )
 
+type Localizer interface {
+	Get(id string, args map[string]interface{}) string
+}
+
 type Bot struct {
-	cfgTg config.TG       `do:"cfg.tg"`
-	db    *db.DB          `do:""`
-	git   *gitlab.Gitlab  `do:""`
-	loc   *lang.Localizer `do:""`
+	cfgTg config.TG      `do:"cfg.tg"`
+	db    *db.DB         `do:""`
+	git   *gitlab.Gitlab `do:""`
+	loc   Localizer      `do:""`
 
 	tg *tele.Bot
 }
