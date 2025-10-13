@@ -84,7 +84,7 @@ func (s *Suite) SetupTest() {
 	}
 	s.tc.EXPECT().Sender().Return(&testUser).Maybe()
 
-	// all calles allowed
+	// all called allowed
 	s.tc.EXPECT().Send(mock.Anything).Return(nil).Maybe()
 	s.tc.EXPECT().Send(mock.Anything, mock.Anything).Return(nil).Maybe()
 
