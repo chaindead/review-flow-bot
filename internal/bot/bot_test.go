@@ -62,7 +62,7 @@ func (s *Suite) SetupSuite() {
 func (s *Suite) gitlab(opts ...gmock.MockBackendOption) {
 	mockedURL := gmock.NewMockedHTTPServer(opts...)
 
-	do.ProvideNamedValue(s.inj, "cfg.gitlab", config.Gitlab{URL: mockedURL})
+	do.OverrideNamedValue(s.inj, "cfg.gitlab", config.Gitlab{URL: mockedURL})
 	do.Override[*gitlab.Gitlab](s.inj, gitlab.New)
 
 	git, err := do.Invoke[*gitlab.Gitlab](s.inj)
@@ -84,6 +84,7 @@ func (s *Suite) SetupTest() {
 	}
 	s.tc.EXPECT().Sender().Return(&testUser).Maybe()
 
+	// all calles allowed
 	s.tc.EXPECT().Send(mock.Anything).Return(nil).Maybe()
 	s.tc.EXPECT().Send(mock.Anything, mock.Anything).Return(nil).Maybe()
 
