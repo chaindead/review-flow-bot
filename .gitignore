@@ -7,3 +7,4 @@
 server
 test.db
 /internal/db/seed/private.yaml
+/test/examples

@@ -13,6 +13,7 @@ import (
 	"github.com/chaindead/review-flow-bot/internal/config"
 	"github.com/chaindead/review-flow-bot/internal/db"
 	"github.com/chaindead/review-flow-bot/internal/gitlab"
+	"github.com/chaindead/review-flow-bot/internal/http"
 	"github.com/chaindead/review-flow-bot/internal/lang"
 	_ "github.com/chaindead/review-flow-bot/internal/logger"
 	"github.com/chaindead/review-flow-bot/internal/watcher"
@@ -47,19 +48,25 @@ func main() {
 	do.Provide(injector, gitlab.New)
 	do.Provide(injector, lang.New)
 	do.Provide(injector, watcher.New)
+	do.Provide(injector, http.New)
 
-	w, err := do.Invoke[*watcher.Watcher](injector)
-	if err != nil {
-		log.Fatal().Err(err).Msg("failed to initialize watcher")
-	}
+	//w, err := do.Invoke[*watcher.Watcher](injector)
+	//if err != nil {
+	//	log.Fatal().Err(err).Msg("failed to initialize watcher")
+	//}
 
 	tg, err := do.Invoke[*bot.Bot](injector)
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to initialize bot")
 	}
 
+	srv, err := do.Invoke[*http.Server](injector)
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to initialize http")
+	}
+
 	go tg.Start()
-	go w.Start()
+	go srv.Start()
 
 	_, report := injector.ShutdownOnSignals(syscall.SIGTERM, os.Interrupt)
 	if !report.Succeed {

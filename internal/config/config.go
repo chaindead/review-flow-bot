@@ -16,6 +16,7 @@ type Config struct {
 	DB      DB      `envPrefix:"DB_"`
 	Gitlab  Gitlab  `envPrefix:"GITLAB_"`
 	Watcher Watcher `envPrefix:"WATCH_"`
+	HTTP    HTTP    `envPrefix:"HTTP_"`
 }
 
 type TG struct {
@@ -35,6 +36,11 @@ type Gitlab struct {
 
 type Watcher struct {
 	PollInterval time.Duration `env:"POLL_INTERVAL" envDefault:"5s"`
+}
+
+type HTTP struct {
+	Port   int    `env:"PORT" envDefault:"8080"`
+	Secret string `env:"SECRET"`
 }
 
 func Init(i do.Injector) error {

@@ -6,5 +6,7 @@ const (
 	StatusLocked = "locked"
 	StatusMerged = "merged"
 
-	TypeSystem = "system"
+	NoteSimple     = ""               // in main, simple write, not resolvable
+	NoteDiff       = "DiffNote"       // in diff resolvable
+	NoteDiscussion = "DiscussionNote" // // in main, resolvable on review req change
 )

@@ -40,4 +40,5 @@ tasks:
         --outpkg bot
         --with-expecter
 
+  ngrok: ngrok http 8080
 
