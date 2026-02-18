@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math/rand"
+	"slices"
 	"time"
 
 	"github.com/rs/zerolog/log"
@@ -14,12 +15,7 @@ import (
 
 // isAdmin checks if user is admin
 func (b *Bot) isAdmin(userID int64) bool {
-	for _, adminID := range b.cfgTg.AdminIDs {
-		if adminID == userID {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(b.cfgTg.AdminIDs, userID)
 }
 
 // requireAuth middleware - requires user to be authenticated

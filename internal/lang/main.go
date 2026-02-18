@@ -14,7 +14,7 @@ import (
 var fs embed.FS
 
 var (
-	funcs = map[string]interface{}{
+	funcs = map[string]any{
 		"bold": func(s string) string {
 			return "*" + s + "*"
 		},
@@ -56,11 +56,11 @@ func New(_ do.Injector) (*Localizer, error) {
 	return &Localizer{loc: i18n.NewLocalizer(bundle, "ru")}, nil
 }
 
-var NoArgs = map[string]interface{}{}
+var NoArgs = map[string]any{}
 
-type Args map[string]interface{}
+type Args map[string]any
 
-func (l *Localizer) Get(id string, args map[string]interface{}) string {
+func (l *Localizer) Get(id string, args map[string]any) string {
 	return l.loc.MustLocalize(&i18n.LocalizeConfig{
 		DefaultMessage: &i18n.Message{
 			ID: id,

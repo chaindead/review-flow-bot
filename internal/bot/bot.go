@@ -14,7 +14,7 @@ import (
 )
 
 type Localizer interface {
-	Get(id string, args map[string]interface{}) string
+	Get(id string, args map[string]any) string
 }
 
 type Bot struct {

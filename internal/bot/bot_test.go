@@ -130,7 +130,7 @@ type mockLocalizer struct {
 	called bool
 }
 
-func (m *mockLocalizer) Get(id string, args map[string]interface{}) string {
+func (m *mockLocalizer) Get(id string, args map[string]any) string {
 	m.called = true
 	m.id = id
 	m.args = args

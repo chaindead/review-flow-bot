@@ -45,7 +45,7 @@ func frameField(f errors.Frame, s *state, c rune) string {
 // implements pkg/errors stack trace marshaling.
 //
 // zerolog.ErrorStackMarshaler = marshalStack
-func marshalStack(err error) interface{} {
+func marshalStack(err error) any {
 	type stackTracer interface {
 		StackTrace() errors.StackTrace
 	}

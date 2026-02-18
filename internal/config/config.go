@@ -45,7 +45,7 @@ func Init(i do.Injector) error {
 
 	// setup providers
 	v := reflect.ValueOf(cfg)
-	t := reflect.TypeOf(cfg)
+	t := reflect.TypeFor[Config]()
 	for idx := 0; idx < v.NumField(); idx++ {
 		tag := t.Field(idx).Tag.Get("envPrefix")
 		value := v.Field(idx).Interface()

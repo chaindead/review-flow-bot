@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	ms := []interface{}{
+	ms := []any{
 		(*models.User)(nil),
 		(*models.Team)(nil),
 		(*models.TeamMember)(nil),
