@@ -5,7 +5,7 @@ import (
 
 	tele "gopkg.in/telebot.v4"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
 )
 
 func rndString(n int) string {

@@ -8,7 +8,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/tidwall/gjson"
 
-	_ "github.com/chaindead/review-flow-bot/internal/logger"
+	_ "git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/logger"
 )
 
 func (s *Server) webhookHandler(c *gin.Context) {

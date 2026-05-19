@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/rs/zerolog/log"
 
-	_ "github.com/chaindead/review-flow-bot/internal/logger"
+	_ "git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/logger"
 )
 
 func main() {

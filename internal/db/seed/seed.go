@@ -13,7 +13,7 @@ import (
 	"github.com/uptrace/bun"
 	"github.com/uptrace/bun/dbfixture"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
 )
 
 //go:embed *.yaml

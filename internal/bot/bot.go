@@ -8,9 +8,9 @@ import (
 	"github.com/samber/do/v2"
 	tele "gopkg.in/telebot.v4"
 
-	"github.com/chaindead/review-flow-bot/internal/config"
-	"github.com/chaindead/review-flow-bot/internal/db"
-	"github.com/chaindead/review-flow-bot/internal/gitlab"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/gitlab"
 )
 
 type Localizer interface {

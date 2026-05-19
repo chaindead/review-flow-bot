@@ -6,7 +6,7 @@ import (
 	"github.com/samber/do/v2"
 	client "gitlab.com/gitlab-org/api/client-go"
 
-	"github.com/chaindead/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
 )
 
 type Gitlab struct {

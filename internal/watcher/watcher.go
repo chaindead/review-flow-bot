@@ -7,10 +7,10 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/samber/do/v2"
 
-	"github.com/chaindead/review-flow-bot/internal/config"
-	"github.com/chaindead/review-flow-bot/internal/db"
-	"github.com/chaindead/review-flow-bot/internal/gitlab"
-	"github.com/chaindead/review-flow-bot/internal/lang"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/gitlab"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/lang"
 )
 
 type Sender interface {

@@ -12,9 +12,9 @@ import (
 	"github.com/uptrace/bun/migrate"
 	_ "modernc.org/sqlite"
 
-	"github.com/chaindead/review-flow-bot/internal/config"
-	"github.com/chaindead/review-flow-bot/internal/db/migrations"
-	"github.com/chaindead/review-flow-bot/internal/db/seed"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/migrations"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/seed"
 )
 
 type DB struct {

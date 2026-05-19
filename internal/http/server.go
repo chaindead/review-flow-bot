@@ -10,7 +10,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/samber/do/v2"
 
-	"github.com/chaindead/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
 )
 
 type Server struct {

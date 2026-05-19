@@ -9,14 +9,14 @@ import (
 	"github.com/samber/do/v2"
 	"github.com/spf13/pflag"
 
-	"github.com/chaindead/review-flow-bot/internal/bot"
-	"github.com/chaindead/review-flow-bot/internal/config"
-	"github.com/chaindead/review-flow-bot/internal/db"
-	"github.com/chaindead/review-flow-bot/internal/gitlab"
-	"github.com/chaindead/review-flow-bot/internal/http"
-	"github.com/chaindead/review-flow-bot/internal/lang"
-	_ "github.com/chaindead/review-flow-bot/internal/logger"
-	"github.com/chaindead/review-flow-bot/internal/watcher"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/bot"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/gitlab"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/http"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/lang"
+	_ "git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/logger"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/watcher"
 )
 
 var (

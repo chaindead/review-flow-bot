@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/uptrace/bun/extra/bundebug"
 
-	"github.com/chaindead/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
 )
 
 func getDB(t *testing.T) *DB {

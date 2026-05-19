@@ -6,7 +6,7 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/require"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
 )
 
 func TestDB_MergeReqCreate(t *testing.T) {

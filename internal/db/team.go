@@ -8,7 +8,7 @@ import (
 	"github.com/samber/lo"
 	"github.com/uptrace/bun"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
 )
 
 func (d *DB) GetAllTeams(ctx context.Context) ([]*models.Team, error) {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
 )
 
 var mdEscaper = strings.NewReplacer(

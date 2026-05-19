@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/mock"
 	gitlab "gitlab.com/gitlab-org/api/client-go"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
 )
 
 func (s *Suite) TestHandlerID() {

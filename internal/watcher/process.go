@@ -9,9 +9,9 @@ import (
 	"github.com/rs/zerolog/log"
 	client "gitlab.com/gitlab-org/api/client-go"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
-	"github.com/chaindead/review-flow-bot/internal/gitlab"
-	"github.com/chaindead/review-flow-bot/internal/lang"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/gitlab"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/lang"
 )
 
 func (w *Watcher) Watch() {

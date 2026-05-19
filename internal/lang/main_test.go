@@ -9,7 +9,7 @@ import (
 	"github.com/samber/do/v2"
 	"github.com/stretchr/testify/require"
 
-	"github.com/chaindead/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
 )
 
 func TestLocalizer_Get(t *testing.T) {

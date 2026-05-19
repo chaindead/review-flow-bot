@@ -14,12 +14,12 @@ import (
 
 	gmock "github.com/rumenvasilev/go-gitlab-mock/mock"
 
-	"github.com/chaindead/review-flow-bot/internal/config"
-	"github.com/chaindead/review-flow-bot/internal/db"
-	"github.com/chaindead/review-flow-bot/internal/db/models"
-	"github.com/chaindead/review-flow-bot/internal/gitlab"
-	"github.com/chaindead/review-flow-bot/internal/lang"
-	_ "github.com/chaindead/review-flow-bot/internal/logger"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/config"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/db/models"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/gitlab"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/lang"
+	_ "git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/logger"
 )
 
 var (

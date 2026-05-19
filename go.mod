@@ -1,4 +1,4 @@
-module github.com/chaindead/review-flow-bot
+module git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot
 
 go 1.25
 

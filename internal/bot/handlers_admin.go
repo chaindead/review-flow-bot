@@ -9,7 +9,7 @@ import (
 	"github.com/rs/zerolog/log"
 	tele "gopkg.in/telebot.v4"
 
-	"github.com/chaindead/review-flow-bot/internal/lang"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/lang"
 )
 
 func (b *Bot) listHandler(c tele.Context) error {

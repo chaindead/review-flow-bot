@@ -11,17 +11,6 @@ Automates and streamlines the code review process for GitLab projects via Telegr
 - **Team Organization**: Organize users into teams with different roles (members, reviewers)
 - **Authentication**: Users authenticate with GitLab using `/login <gitlab_token>` with `read_user` permission
 
-## Installation
-
-### From Releases
-
-1. Download the latest release for your platform
-2. Extract the binary to your desired location
-3. Make the binary executable:
-   ```bash
-   chmod +x review-flow-bot
-   ```
-
 ### Go Install (dev only)
 
 ```bash

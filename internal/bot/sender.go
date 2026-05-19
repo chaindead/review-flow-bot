@@ -4,7 +4,7 @@ import (
 	"github.com/pkg/errors"
 	tele "gopkg.in/telebot.v4"
 
-	"github.com/chaindead/review-flow-bot/internal/lang"
+	"git.dev.bi.zone/pam/onprem/dev/tools/review-flow-bot/internal/lang"
 )
 
 func (b *Bot) Send(userID int64, locID string, args lang.Args) error {
